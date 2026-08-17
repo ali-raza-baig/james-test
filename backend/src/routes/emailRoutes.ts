@@ -1,0 +1,20 @@
+import express from 'express';
+import {
+  createEmail,
+  getEmails,
+  getEmailById,
+  updateEmailStatus,
+  deleteEmail
+} from '../controllers/emailController.js';
+import auth from '../middleware/auth.js';
+import adminAuth from '../middleware/adminAuth.js';
+
+const router = express.Router();
+
+router.post('/emails', createEmail);
+router.get('/emails', auth, adminAuth, getEmails);
+router.get('/emails/:id', auth, adminAuth, getEmailById);
+router.put('/emails/:id/status', auth, adminAuth, updateEmailStatus);
+router.delete('/emails/:id', auth, adminAuth, deleteEmail);
+
+export default router;
