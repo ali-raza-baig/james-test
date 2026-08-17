@@ -1,0 +1,24 @@
+version: '0.1'
+services:
+  backend:
+    build: ./backend
+    container_name: express-backend
+    ports:
+       -"5000:5000"
+    networks:
+      - fullstack-net
+    restart: unless-stopped
+  client:
+    build: ./client
+    container_name: vite-client
+    ports:
+       -"5173:3000"
+    networks:
+      - fullstack-net
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  networks:
+  fullstack-net:
+    driver: bridge
